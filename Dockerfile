@@ -1,11 +1,38 @@
-FROM alpine:3.10
+FROM alpine:3.12
 LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
-      Description="Lightweight WordPress container with Nginx 1.16 & PHP-FPM 7.3 based on Alpine Linux."
+      Description="Lightweight WordPress container with Nginx 1.18 & PHP-FPM 7.3 based on Alpine Linux."
 
-# Install packages from testing repo's
-RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-json php7-openssl php7-curl \
-    php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-xmlwriter \
-    php7-simplexml php7-ctype php7-mbstring php7-gd nginx supervisor curl bash less
+# Install packages
+RUN apk --no-cache add \
+  php7 \
+  php7-fpm \
+  php7-mysqli \
+  php7-json \
+  php7-openssl \
+  php7-curl \
+  php7-zlib \
+  php7-xml \
+  php7-phar \
+  php7-intl \
+  php7-dom \
+  php7-xmlreader \
+  php7-xmlwriter \
+  php7-exif \
+  php7-fileinfo \
+  php7-sodium \
+  php7-openssl \
+  php7-gd \
+  php7-imagick \
+  php7-simplexml \
+  php7-ctype \
+  php7-mbstring \
+  php7-zip \
+  php7-opcache \
+  nginx \
+  supervisor \
+  curl \
+  bash \
+  less
 
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
@@ -23,8 +50,8 @@ WORKDIR /var/www/wp-content
 RUN chown -R nobody.nobody /var/www
 
 # WordPress
-ENV WORDPRESS_VERSION 5.2.4
-ENV WORDPRESS_SHA1 9eb002761fc8b424727d8c9d291a6ecfde0c53b7
+ENV WORDPRESS_VERSION 5.4.2
+ENV WORDPRESS_SHA1 e5631f812232fbd45d3431783d3db2e0d5670d2d
 
 RUN mkdir -p /usr/src
 
